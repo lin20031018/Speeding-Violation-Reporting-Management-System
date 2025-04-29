@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工輸入介面</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 20px; /* 添加內邊距，避免內容被切邊 */
+    display: flex;
+    flex-direction: column; /* 改為垂直排列 */
+    justify-content: flex-start; /* 從頂部開始排列 */
+    align-items: center; /* 水平居中 */
+    min-height: 100vh; /* 保持頁面高度至少等於視窗高度 */
+    box-sizing: border-box;
+}
+
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        img {
+            display: block;
+            max-width: 50%;
+            height: auto;
+            margin: 0 auto 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            display: block;
+            width: 50%;
+            margin: 20px auto 0;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>人工輸入介面</h1>
+        <p>輸入佐理員：{{ employee_id }}</p>
+        <img src="{{ data.violation_photo }}" alt="違規照片">
+        <form action="{{ url_for('submit_manual_input') }}" method="POST">
+            <div class="form-group">
+                <label for="violation_id">違規單號：</label>
+                <input type="text" id="violation_id" name="violation_id" value="{{ data.violation_id }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="ai_result">AI辨識結果：</label>
+                <input type="text" id="ai_result" value="{{ data.ai_result }}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="manual_result">人工辨識結果：</label>
+                <input type="text" id="manual_result" name="manual_result" required>
+            </div>
+            <div class="form-group">
+                <label for="processed_ip">處理機IP位置：</label>
+                <input type="text" id="processed_ip" name="processed_ip" required>
+            </div>
+            <input type="submit" value="送出">
+        </form>
+    </div>
+</body>
+</html>

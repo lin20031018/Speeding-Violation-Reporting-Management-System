@@ -1,0 +1,77 @@
+version: "3.7"
+
+services:
+  nginx:
+    #restart: always
+    container_name: nginx
+    image: nginx:${NGINX_IMAGE_TAG:-latest}
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl:/etc/nginx/ssl
+    ports:
+      - 80:80
+      - 443:443
+
+  dashboard-fe:
+    image: node:${NODE_IMAGE_TAG:-latest}
+    container_name: dashboard-fe
+    #restart: always
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      VITE_API_URL: ${VITE_API_URL}
+      VITE_APP_TITLE: ${VITE_APP_TITLE}
+      VITE_APP_VERSION: ${VITE_APP_VERSION}
+      VITE_MAPBOXTOKEN: ${VITE_MAPBOXTOKEN}
+      VITE_MAPBOXTILE: ${VITE_MAPBOXTILE}
+      VITE_TAIPEIPASS_URL: ${TAIPEIPASS_URL}
+      VITE_TAIPEIPASS_CLIENT_ID: ${ISSO_CLIENT_ID}
+      VITE_TAIPEIPASS_SCOPE: ${ISSO_CLIENT_SCOPE}
+    volumes:
+      - ../Taipei-City-Dashboard-FE:/opt/Taipei-City-Dashboard-FE
+    ports:
+      - "8080:80"
+    working_dir: /opt/Taipei-City-Dashboard-FE
+    command: ["npm", "run", "dev"]
+
+  dashboard-be:
+    image: golang:${GOLANG_IMAGE_TAG:-latest}
+    container_name: dashboard-be
+    #restart: always
+    environment:
+      GIN_MODE: ${GIN_MODE}
+      GIN_DOMAIN: ${GIN_DOMAIN}
+      GIN_PORT: ${GIN_PORT:-8080}
+      JWT_SECRET: ${JWT_SECRET}
+      IDNO_SALT: ${IDNO_SALT}
+      ISSO_CLIENT_ID: ${ISSO_CLIENT_ID}
+      ISSO_CLIENT_SECRET: ${ISSO_CLIENT_SECRET}
+      DB_DASHBOARD_HOST: ${DB_DASHBOARD_HOST:-postgres-data}
+      DB_DASHBOARD_USER: ${DB_DASHBOARD_USER}
+      DB_DASHBOARD_PASSWORD: ${DB_DASHBOARD_PASSWORD}
+      DB_DASHBOARD_DBNAME: ${DB_DASHBOARD_DBNAME}
+      DB_DASHBOARD_PORT: ${DB_DASHBOARD_PORT:-5432}
+      DB_MANAGER_HOST: ${DB_MANAGER_HOST:-postgres-manager}
+      DB_MANAGER_USER: ${DB_MANAGER_USER}
+      DB_MANAGER_PASSWORD: ${DB_MANAGER_PASSWORD}
+      DB_MANAGER_DBNAME: ${DB_MANAGER_DBNAME}
+      DB_MANAGER_PORT: ${DB_MANAGER_PORT:-5432}
+      REDIS_HOST: ${REDIS_HOST:-redis}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-}
+      REDIS_DB: ${REDIS_DB}
+    volumes:
+      - ../Taipei-City-Dashboard-BE:/opt/Taipei-City-Dashboard-BE
+    working_dir: /opt/Taipei-City-Dashboard-BE
+    ports:
+      - "8088:${PORT:-8080}"
+    command: ["go", "run", "main.go"]
+
+networks:
+  default:
+    name: br_dashboard
+    external: true
+###########################################
+## Create docker network command sample: ##
+## ------------------------------------- ##################################################################
+## docker network create --driver=bridge --subnet=192.168.128.0/24 --gateway=192.168.128.1  br_dashboard ##
+###########################################################################################################

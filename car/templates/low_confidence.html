@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工辨識提示</title>
+    <style>
+        body {
+            font-family: 'Quicksand', Arial, sans-serif;
+            background: #f9f9f9; /* 純淺灰色背景 */
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+            text-align: center;
+        }
+        .button-container {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .button-link {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .button-link:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>信心水準偏低</h1>
+    <p>車牌號碼：{{ license_plate }}</p>
+    <p>信心水準：{{ (confidence ) | round(2) }}%</p>
+    <p>請登入交通佐理員系統後，進行人工辨識。</p>
+    <div class="button-container">
+        <a href="/login" class="button-link">交通佐理員登入系統</a>
+    </div>
+</body>
+</html>

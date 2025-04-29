@@ -1,0 +1,42 @@
+body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+.container {
+    width: 80%;
+    margin: auto;
+}
+h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+th {
+    background-color: #f4f4f4;
+	font-weight: bold;
+}
+.status-paid {
+    color: green;
+    font-weight: bold;
+}
+.status-unpaid {
+    color: red;
+    font-weight: bold;
+}

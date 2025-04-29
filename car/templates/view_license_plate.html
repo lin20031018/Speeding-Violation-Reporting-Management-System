@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>車牌辨識結果</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center; 
+        }
+        table {
+            margin: auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .button-container a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>車牌辨識結果</h1>
+    <table>
+        <tr>
+            <th>違規單號</th>
+            <td>{{ violation_id }}</td>
+        </tr>
+        <tr>
+            <th>車牌號碼</th>
+            <td>{{ license_plate }}</td>
+        </tr>
+        <tr>
+            <th>信心水準</th>
+            <td>{{ confidence | round(2)  }}%</td>
+        </tr>
+        <tr>
+            <th>AI 模型版本</th>
+            <td>{{ ai_model_version }}</td>
+        </tr>
+    </table>
+    <div class="button-container">
+        <a href="{{ url_for('index') }}">繼續填寫違規資料</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+.DS_Store
+/node_modules
+Taipei-City-Dashboard-FE/dist
+Taipei-City-Dashboard-BE/TaipeiCityDashboardBE
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+node_modules
+
+# Firebase
+/.firebase
+.firebase
+.firebaserc
+firebase.json
+*.cache
+
+dist.tar.gz
+*.sh
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# .env files except for template
+docker/.env
+Taipei-City-Dashboard-FE/.env
+Taipei-City-Dashboard-FE/.env.development
+Taipei-City-Dashboard-FE/.env.production
+Taipei-City-Dashboard-FE/.env.test
+
+# docker-compose
+# db data
+docker/db-data
+# nginx ssl
+docker/nginx/ssl
+
+
+# data end
+Taipei-City-Dashboard-DE/local_env/volume_data
+Taipei-City-Dashboard-DE/logs
+Taipei-City-Dashboard-DE/data
+**/__pycache__/
+*.py[cod]

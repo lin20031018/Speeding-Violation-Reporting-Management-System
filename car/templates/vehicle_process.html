@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>車籍資料未確認處理</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            width: 45%;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+            color: #4CAF50;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <h1>車籍資料未確認處理</h1>
+    
+    <!-- 左右分區 -->
+    <div class="container">
+        <!-- 未確認車牌 -->
+        <div class="section">
+            <h2>還未確認的違規車牌</h2>
+            <p><strong>車牌號碼：</strong>{{ plate_number }}</p>
+        </div>
+
+        <!-- 車籍資料 -->
+        <div class="section">
+            <h2>搜尋監理站後的車籍資料</h2>
+            {% if vehicle_data %}
+            <table>
+                <tbody>
+                    <tr>
+                        <th>車牌號碼</th>
+                        <td>{{ vehicle_data['車牌號碼'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>車輛類型</th>
+                        <td>{{ vehicle_data['車輛類型'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>車色</th>
+                        <td>{{ vehicle_data['車色'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>車主姓名</th>
+                        <td>{{ vehicle_data['車主姓名'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>車牌狀態</th>
+                        <td>{{ vehicle_data['車牌狀態'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>登記地址</th>
+                        <td>{{ vehicle_data['登記地址'] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            {% else %}
+            <p>查無此車輛行照相關資訊！</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- 底部按鈕 -->
+    <form method="POST" action="/vehicle_process">
+        <input type="hidden" name="violation_id" value="{{ violation_id }}">
+        <div class="button-container">
+            <button type="submit" name="action" value="確認">對比正確，送出</button>
+            <button type="submit" name="action" value="無效車牌">無效車牌</button>
+        </div>
+    </form>
+</body>
+</html>
+

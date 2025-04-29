@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- Developed by Taipei Urban Intelligence Center 2023-2024-->
+<!-- 
+Lead Developer:  Igor Ho (Full Stack Engineer)
+Auth & Systems: Ann Shih (Systems Engineer)
+Data Pipelines:  Iima Yu (Data Scientist)
+Design and UX: Roy Lin (Fmr. Consultant), Chu Chen (Researcher)
+Testing: Jack Huang (Data Scientist), Ian Huang (Data Analysis Intern) 
+-->
+<!-- Department of Information Technology, Taipei City Government -->
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/logo.ico" />
+		<link
+			href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+			rel="stylesheet"
+		/>
+		<link rel="manifest" href="/manifest.json" />
+		<link rel="apple-touch-icon" href="/logo.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="version" content="<%= VITE_APP_VERSION %>" />
+		<meta
+			name="description"
+			content="Taipei City Dashboard, Taipei Urban Intelligence Center, Department of Information Technology, Taipei City Government"
+		/>
+		<title>%VITE_APP_TITLE%</title>
+		<!-- Global tag (gtag.js) -->
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=G-0KD9XLZ7W3"
+		></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				dataLayer.push(arguments);
+			}
+			gtag("js", new Date());
+			gtag("config", "G-0KD9XLZ7W3");
+		</script>
+	</head>
+	<body>
+		<noscript>
+			<strong
+				>請開啟JavaScript以使用本儀表板｜Please enable JavaScript to use
+				this application</strong
+			>
+		</noscript>
+		<div id="app"></div>
+		<script type="module" src="/src/main.js"></script>
+	</body>
+</html>

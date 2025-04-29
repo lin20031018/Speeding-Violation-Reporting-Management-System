@@ -1,0 +1,88 @@
+body {
+    font-family: "Microsoft JhengHei", Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 20px;
+}
+h1 {
+    text-align: center;
+    color: #333;
+}
+.data-container {
+    width: 190mm;
+    height: 250mm;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 2px solid #000;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+.data-row:last-child {
+    border-bottom: none;
+}
+.label {
+    font-weight: bold;
+    flex: 1;
+}
+.value {
+    flex: 2;
+    text-align: left;
+    color: #555;
+}
+.photo-section {
+    text-align: center;
+    margin-top: 5%;
+}
+.photo-section img {
+    width: 90%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    margin: 0 10px;
+    font-size: 16px;
+}
+.button:hover {
+    background-color: #0056b3;
+}
+.no-data {
+    color: red;
+    text-align: center;
+    margin: 20px 0;
+}
+@media print {
+    /* 隱藏按鈕區域 */
+    .button-container {
+        display: none;
+    }
+    /* 取消頁面背景顏色 */
+    body {
+        background-color: white;
+    }
+}

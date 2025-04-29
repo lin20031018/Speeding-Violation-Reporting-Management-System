@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人工辨識總覽</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .tab-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .tab.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+
+        .tab:hover {
+            transform: translateY(-3px);
+        }
+
+        .table-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .table-container.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        
+    </style>
+    <script>
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.table-container').forEach(tc => tc.classList.remove('active'));
+            document.getElementById(tab).classList.add('active');
+            document.getElementById(tab + '-table').classList.add('active');
+        }
+        async function updateStatus(violationId) {
+            try {
+                const response = await fetch('/update_status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `violation_id=${violationId}`,
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert(result.message); // 顯示成功訊息
+                } else {
+                    alert(`錯誤：${result.message}`); // 顯示錯誤訊息
+                }
+            } catch (error) {
+                alert(`請求失敗：${error.message}`);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>人工辨識總覽</h1>
+    <div class="tab-container">
+        <div class="tab active" id="unprocessed" onclick="switchTab('unprocessed')">未處理</div>
+        <div class="tab" id="processed" onclick="switchTab('processed')">已處理</div>
+    </div>
+
+    <!-- 未處理表格 -->
+    <div class="table-container active" id="unprocessed-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>人工辨識編號</th>
+                    <th>違規單號</th>
+                    <th>事件狀態</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in unprocessed_data %}
+                <tr>
+                    <td>{{ row.manual_id }}</td>
+                    <td>
+                        <a href="{{ url_for('manual_input', violation_id=row.violation_id) }}" style="text-decoration: none; color: inherit;">
+                            {{ row.violation_id }}
+                        </a>
+                    </td>
+                    <td>{{ row.event_status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 已處理表格 -->
+    <div class="table-container" id="processed-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>人工辨識編號</th>
+                    <th>違規單號</th>
+                    <th>違規照片</th>
+                    <th>車牌號碼</th>
+                    <th>違規時間</th>
+                    <th>處理機IP位址</th>
+                    <th>事件狀態</th>
+                    <th>車籍資料確認</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in processed_data %}
+                <tr>
+                    <td>{{ row.manual_id }}</td>
+                    <td>{{ row.violation_id }}</td>
+                    <td><img src="/{{ row.violation_photo }}" alt="違規照片" style="max-width: 100px; max-height: 100px;"></td>
+                    <td>{{ row.license_plate }}</td>
+                    <td>{{ row.violation_time }}</td>
+                    <td>{{ row.processed_ip }}</td>
+                    <td>{{ row.event_status }}</td>
+                    <td>
+                        <button onclick="updateStatus('{{ row.violation_id }}')">送出</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 返回按鈕 -->
+    <div class="back-button-container">
+        <a href="/view" class="back-button">返回</a>
+    </div>
+</body>
+</html>
+

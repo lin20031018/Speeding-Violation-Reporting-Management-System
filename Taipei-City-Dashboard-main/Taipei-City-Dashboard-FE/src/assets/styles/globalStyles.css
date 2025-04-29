@@ -1,0 +1,241 @@
+/* Cleaned */
+
+:root {
+	--color-background: #090909;
+	--color-border: #494b4e;
+	--color-highlight: #5a9cf8;
+	--color-normal-text: white;
+	--color-complement-text: #888787;
+	--color-component-background: #282a2c;
+	--color-overlay: rgba(0, 0, 0, 0.65);
+	--font-to-icon: 1.2;
+	--font-xl: 1.5rem;
+	--font-l: 1.25rem;
+	--font-m: 18px;
+	--font-ms: 1rem;
+	--font-s: 0.75rem;
+	--font-icon: "Material Icons Round";
+	--vh: 1vh;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	color: var(--color-normal-text);
+	font-family: "微軟正黑體", "Microsoft JhengHei", "Droid Sans", "Open Sans",
+		"Helvetica";
+	overflow: hidden;
+}
+
+h1 {
+	font-size: var(--font-l);
+}
+
+h2 {
+	font-size: var(--font-m);
+}
+
+h3,
+p {
+	font-size: var(--font-s);
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	border: none;
+	background-color: transparent;
+}
+
+button:hover {
+	cursor: pointer;
+}
+
+input {
+	padding: 4px 6px;
+	border-radius: 5px;
+	border: solid 1px var(--color-border);
+	background-color: transparent;
+	font-size: var(--font-ms);
+}
+
+input:focus {
+	outline: none;
+	border-color: var(--color-highlight);
+}
+
+input:disabled,
+textarea:disabled {
+	color: var(--color-complement-text);
+	cursor: not-allowed;
+}
+
+input:required:invalid {
+	border: solid 1px rgb(237, 90, 90);
+}
+select:required:invalid {
+	border: solid 1px rgb(237, 90, 90);
+}
+
+select {
+	padding: 4px 6px;
+	border-radius: 5px;
+	border: solid 1px var(--color-border);
+	background-color: transparent;
+	font-size: var(--font-ms);
+	outline: none;
+}
+
+select:focus {
+	border-color: var(--color-highlight);
+}
+
+option {
+	background-color: var(--color-component-background);
+}
+
+textarea {
+	min-width: calc(100% - 14px);
+	max-width: calc(100% - 14px);
+	min-height: 50px;
+	padding: 4px 6px;
+	border: solid 1px var(--color-border);
+	border-radius: 5px;
+	background-color: transparent;
+	font-size: var(--font-ms);
+}
+
+textarea:focus {
+	outline: none;
+	border: solid 1px var(--color-highlight);
+}
+
+textarea:required:invalid {
+	border: solid 1px rgb(237, 90, 90);
+}
+
+body {
+	background-color: var(--color-background);
+}
+
+table {
+	display: block;
+	border-radius: 5px;
+	border-collapse: collapse;
+	overflow-x: auto;
+	overflow-y: scroll;
+	white-space: nowrap;
+}
+
+th {
+	position: sticky;
+	top: 0;
+	background-color: var(--color-border);
+	height: 2.5rem;
+}
+
+th:last-child {
+	border-radius: 0 5px 0 0;
+}
+
+td {
+	text-align: center;
+	height: 4rem;
+	border-bottom: solid 1px var(--color-border);
+	background-color: var(--color-component-background);
+	padding: 4px;
+}
+
+td:last-child {
+	border-radius: 0 0 5px 0;
+}
+
+::-webkit-scrollbar {
+	width: 0px;
+}
+
+@media (min-width: 1000px) {
+	.show-if-mobile {
+		display: none !important;
+	}
+}
+
+@media (max-width: 1000px) {
+	.hide-if-mobile {
+		display: none !important;
+	}
+}
+
+@media (max-height: 500px) {
+	.hide-if-mobile {
+		display: none !important;
+	}
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* MapBox */
+.mapboxgl-user-location-accuracy-circle {
+	background-color: var(--color-highlight) !important;
+	height: 0.75rem !important;
+	width: 0.75rem !important;
+}
+
+.mapboxgl-user-location-dot {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 2rem !important;
+	width: 2rem !important;
+	background-color: transparent !important;
+}
+
+.mapboxgl-user-location-dot:before {
+	position: inherit !important;
+	background-color: var(--color-highlight) !important;
+}
+
+.mapboxgl-user-location-dot:after {
+	display: none;
+}
+
+.mapboxgl-user-location-heading {
+	display: none;
+}
+
+html .mapboxgl-popup {
+	max-width: 260px !important;
+	min-width: 100px !important;
+}
+
+html .mapboxgl-popup .popup-for-pin {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	column-gap: 8px;
+	margin: 8px;
+
+	div {
+		padding: 2px 4px;
+		border-radius: 5px;
+		background-color: rgb(77, 77, 77);
+	}
+
+	.delete-pin {
+		span {
+			font-family: var(--font-icon);
+			font-size: var(--font-m);
+			color: var(--color-complement-text);
+			transition: color 0.2s;
+		}
+	}
+	.delete-pin:hover span {
+		color: white;
+	}
+}

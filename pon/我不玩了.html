@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            height: 100vh;
+        }
+
+        .print-container {
+            width: 90%;
+            max-width: 800px;
+            background: white;
+            border: 1px solid black;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .print-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(9, 1fr);
+            gap: 0;
+            border: 1px solid black;
+        }
+
+        .print-table div {
+            border: 1px solid black;
+            padding: 10px;
+            font-size: 16px;
+            text-align: left;
+        }
+		.inchun{
+		    grid-row: span 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+		}
+        .photo-content {
+            grid-row: span 4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .three-split {
+            grid-column: span 1;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="print-container">
+    <div class="print-table">
+        <div>駕駛人</div>
+        <div class="inchun">印章</div>
+        <div class="three-split">車牌</div>
+        
+        <div class="three-split">登記車主</div>
+		<div class="three-split">車型</div>
+        <div class="full-width">登記地址</div>
+        <div>違規地點</div>
+        <div>道路限速</div>
+        <div>違規時間</div>
+        <div>違規限速</div>
+        <div>繳費金額</div>
+        <div class="photo-content">照片內容</div>
+        <div>繳費時間</div>
+        <div>列印人員編號</div>
+        <div>列印時間</div>
+    </div>
+</div>
+
+</body>
+</html>

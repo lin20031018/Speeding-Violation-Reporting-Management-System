@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>車籍資料確認</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tabs a {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            margin: 0 5px;
+            background-color: #f4f4f4;
+            border-radius: 20px;
+            color: #333;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .tabs a.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 1px solid #4CAF50;
+        }
+
+        .tabs a:hover {
+            transform: translateY(-3px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 4px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 12px 25px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #4CAF50;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>車籍資料確認</h1>
+    <div class="tabs">
+        <a href="{{ url_for('vehicle_status', status='未確認') }}" class="{{ 'active' if selected_status == '未確認' else '' }}">未確認</a>
+        <a href="{{ url_for('vehicle_status', status='已確認') }}" class="{{ 'active' if selected_status == '已確認' else '' }}">已確認</a>
+    </div>
+    <table>
+        <thead>
+            {% if selected_status == '未確認' %}
+            <tr>
+                <th>違規單號</th>
+                <th>車牌號碼</th>
+                <th>車籍資料確認</th>
+            </tr>
+            {% elif selected_status == '已確認' %}
+            <tr>
+                <th>違規單號</th>
+                <th>違規照片</th>
+                <th>車牌號碼</th>
+                <th>違規時間</th>
+                <th>違規地點</th>
+                <th>紀錄設備ID</th>
+                <th>車速</th>
+                <th>限速</th>
+                <th>車籍資料確認</th>
+            </tr>
+            {% endif %}
+        </thead>
+        <tbody>
+            {% for row in results %}
+            {% if selected_status == '未確認' %}
+            <tr>
+                <td><a href="{{ url_for('vehicle_process', violation_id=row.違規單號) }}" style="text-decoration: none; color: inherit;">{{ row.違規單號 }}</a></td>
+                <td>{{ row.車牌號碼 }}</td>
+                <td>{{ row.車牌確認狀態 }}</td>
+            </tr>
+            {% elif selected_status == '已確認' %}
+            <tr>
+                <td>{{ row.違規單號 }}</td>
+                <td><img src="{{ row.違規照片 }}" alt="違規照片"></td>
+                <td>{{ row.車牌號碼 }}</td>
+                <td>{{ row.違規時間 }}</td>
+                <td>{{ row.違規地點 }}</td>
+                <td>{{ row.紀錄設備ID }}</td>
+                <td>{{ row.車輛時速 }}</td>
+                <td>{{ row.道路速限 }}</td>
+                <td>{{ row.車牌確認狀態 }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="back-button-container">
+        <a href="/view" class="back-button">返回</a>
+    </div>
+</body>
+</html>
